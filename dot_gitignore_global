@@ -1,0 +1,29 @@
+.DS_Store
+
+# pycharm project files
+.idea
+.pycharm_helpers
+
+.codeintel
+
+.vscode
+
+.rgignore
+
+.dmypy.json
+
+*.egg-info
+
+__pycache__
+
+
+# pyenv
+.python-version
+
+# pytest
+.pytest_cache
+
+ipython_log.py
+
+init_env.fish
+
