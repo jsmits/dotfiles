@@ -40,7 +40,7 @@
 [difftool "sourcetree"]
     {{ if eq .chezmoi.os "darwin" -}}
     cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-    {{ else -}}
+    {{- else -}}
     cmd = '' \"$LOCAL\" \"$REMOTE\"
     {{- end }}
     path = 
@@ -48,7 +48,7 @@
 [mergetool "sourcetree"]
     {{ if eq .chezmoi.os "darwin" -}}
     cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-    {{ else -}}
+    {{- else -}}
     cmd = '' \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
     {{- end }}
     trustExitCode = true
