@@ -1,0 +1,73 @@
+[user]
+    name = {{ .name }}
+    email = {{ .email }}
+
+[color]
+    branch = auto
+    status = auto
+    diff = auto
+
+[apply]
+    whitespace = warn
+
+[gc]
+    auto = 1
+
+[core]
+    excludesfile = ~/.gitignore_global
+    editor = vim -f
+    pager = delta
+
+[alias]
+    co = checkout
+    ci = commit
+    st = status
+    br = branch
+    hist = log --pretty=format:\"%C(yellow)%ad%Creset %C(magenta)%h%Creset %s%C(red)%d%Creset %C(blue)[%an]%Creset\" --graph --date=short
+    type = cat-file -t
+    dump = cat-file -p
+    change-commits = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch --env-filter \"if [[ \\\"$\\`echo $VAR\\`\\\" = '$OLD' ]]; then export $VAR='$NEW'; fi\" $@; }; f"
+
+[push]
+    default = current 
+
+[rerere]
+    enabled = true
+
+[pull]
+    rebase = true
+
+[difftool "sourcetree"]
+    {{ if eq .chezmoi.os "darwin" -}}
+    cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+    {{ else -}}
+    cmd = '' \"$LOCAL\" \"$REMOTE\"
+    {{- end }}
+    path = 
+
+[mergetool "sourcetree"]
+    {{ if eq .chezmoi.os "darwin" -}}
+    cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+    {{ else -}}
+    cmd = '' \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+    {{- end }}
+    trustExitCode = true
+
+[filter "lfs"]
+    required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    features = line-numbers decorations
+    whitespace-error-style = 22 reverse
+    syntax-theme = Solarized (dark) 
+
+[delta "decorations"]
+    commit-decoration-style = bold yellow box ul
+    file-style = bold yellow ul
+    file-decoration-style = none
